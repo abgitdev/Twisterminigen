@@ -1,0 +1,12 @@
+Krea 2 is licensed under the Krea 2 Community License Agreement. For more information, visit https://krea.ai/krea-2-licensing.
+
+Twisterminigen is an independent, modified MLX implementation for Apple silicon. It includes
+original integration, quantized-weight loading, local generation workflows, and product UI that
+are not part of Krea's official distribution. Twisterminigen is not an official Krea product and
+is not endorsed by Krea.
+
+Krea 2 model weights are not included in this source repository or application bundle. When a
+user downloads, links, or otherwise uses compatible weights, those weights and generated outputs
+remain subject to the Krea 2 Community License Agreement and Acceptable Use Policy.
+
+See KREA-2-COMMUNITY-LICENSE.txt and THIRD_PARTY_LICENSES.md distributed with the application.

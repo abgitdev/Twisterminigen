@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: macos-26
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v5
+
+      - name: Verify Apple Silicon runner
+        run: |
+          test "$(uname -m)" = "arm64"
+          swift --version
+
+      - name: Verify release tooling and privacy policy
+        run: |
+          bash -n tools/privacy_scan.sh
+          bash -n tools/source_release_gate.sh
+          python3 tools/release_source_state_self_test.py
+          python3 tools/export_public_source_self_test.py
+          python3 tools/privacy_scan_self_test.py
+
+      - name: Build and test with the Xcode MLX Metal library
+        run: tools/test_with_mlx_metallib.sh
